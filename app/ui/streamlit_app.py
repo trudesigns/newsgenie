@@ -1,20 +1,14 @@
-from app.graph import build_graph
+# isort: skip_file
 import os
 import sys
 import streamlit as st
 
-# --------------------------------------------------------
-# Make sure project root is on sys.path so "app" can be imported
-# --------------------------------------------------------
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(CURRENT_DIR, "..", ".."))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
 
-if PROJECT_ROOT not in sys.path:
-    sys.path.insert(0, PROJECT_ROOT)
+from app.graph import build_graph
 
-
-# --------------------------------------------------------
-# Initialize graph and session state
 # --------------------------------------------------------
 if "graph" not in st.session_state:
     st.session_state.graph = build_graph()
